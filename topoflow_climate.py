@@ -15,11 +15,13 @@ def _generate_inputs(
     bounding_box: List[float],
     xres_arcsecs: int,
     yres_arcsecs: int,
-    dt_template_file: str,
     dt_output_file: str
 ):
+    base_dir = Path(__file__).parent
+    dt_template_file = "templates/topoflow_climate.yaml"
+    dt_template_path = base_dir / dt_template_file
     _data = locals()
-    _spec = get_spec(Path(dt_template_file))
+    _spec = get_spec(Path(dt_template_path))
     for key, default_value in _spec['inputs'].items():
         if key in _data:
             new_value = _data[key]
@@ -44,7 +46,6 @@ def _main():
     parser.add_argument('--xres_arcsecs', type=int, required=True)
     parser.add_argument('--yres_arcsecs', type=int, required=True)
     parser.add_argument('--dt-output-file', type=str, default='topoflow_climate.yaml')
-    parser.add_argument('--dt-template-file', type=str, default='./templates/topoflow_climate.yaml')
     args = parser.parse_args()
 
     _generate_inputs(**vars(args))
