@@ -23,7 +23,10 @@ def _generate_inputs(
     for key, default_value in _spec['inputs'].items():
         if key in _data:
             new_value = _data[key]
-            _spec['inputs'][key] = new_value
+            if type(new_value) == list:
+                _spec['inputs'][key] = ",".join([str(x) for x in new_value])
+            else:
+                _spec['inputs'][key] = str(new_value)
             logging.info(f"""Setting {key} in {new_value}""")
 
     write_to_yaml(dt_output_file, _spec)
