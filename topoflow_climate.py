@@ -1,6 +1,7 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 import argparse
+import typing
 from typing import List
 from string import Template
 from utils import get_spec, write_to_yaml
