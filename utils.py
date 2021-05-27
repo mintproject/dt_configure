@@ -1,9 +1,12 @@
-import yaml
-from yaml import Loader
+from yaml import load, dump
+try:
+    from yaml import CLoader as Loader, CDumper as Dumper
+except ImportError:
+    from yaml import Loader, Dumper
 from pathlib import Path
 
 def get_spec(config_yaml_path: Path) -> dict:
-    spec = yaml.load(config_yaml_path.open(), Loader=Loader)
+    spec = load(config_yaml_path.open(), Loader=Loader)
     return spec
 
 def write_to_yaml(config_yaml_path: Path, spec):
@@ -13,4 +16,4 @@ def write_to_yaml(config_yaml_path: Path, spec):
     @param spec: data for yaml
     """
     with open(config_yaml_path, 'w') as f:
-        yaml.dump(spec, f, sort_keys=False)
+        dump(spec, f, sort_keys=False)
