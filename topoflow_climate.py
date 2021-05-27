@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 import argparse
 from typing import List
 from string import Template
